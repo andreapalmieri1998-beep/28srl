@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0056)file:///Users/andreapalmieri/Downloads/28srl_FINALE.html -->
-<html lang="it"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="it">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="format-detection" content="telephone=no">
 <title>28 — Intellectual Property</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="./28 — finale_files/css2" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --gold: #B8975A;
@@ -448,7 +447,6 @@ nav::after {
   position: sticky;
   top: 100px;
 }
-.about-left .al-data-mobile { display: none; }
 
 .al-label {
   font-size: 14px;
@@ -665,11 +663,8 @@ footer {
   .statement::before { display: none; }
   .st-quote { padding-left: 28px; }
   .pillars-grid { grid-template-columns: 1fr; }
-  .pillars-bottom { grid-template-columns: 1fr; }
-  .about { grid-template-columns: 1fr; gap: 0; }
-  .about-left { position: static; padding-bottom: 0; }
-  .about-left dl { display: none; }
-  .about-right .al-data { display: block; }
+  .about { grid-template-columns: 1fr; gap: 60px; }
+  .about-left { position: static; }
   .ar-values { grid-template-columns: 1fr; }
   footer { flex-direction: column; gap: 16px; text-align: center; padding: 28px; }
 }
@@ -677,16 +672,16 @@ footer {
 </head>
 <body>
 
-<div id="cur" style="left: 909px; top: 258px;"></div>
-<div id="cur-r" style="left: 944.64px; top: 62.79px;"></div>
+<div id="cur"></div>
+<div id="cur-r"></div>
 
 <!-- NAV -->
 <nav>
-  <a href="file:///Users/andreapalmieri/Downloads/28srl_FINALE.html#" class="logo">28</a>
+  <a href="#" class="logo">28</a>
   <div class="nav-r">
-    <a href="file:///Users/andreapalmieri/Downloads/28srl_FINALE.html#pillars">Servizi</a>
-    <a href="file:///Users/andreapalmieri/Downloads/28srl_FINALE.html#about">Chi siamo</a>
-    <a href="file:///Users/andreapalmieri/Downloads/28srl_FINALE.html#contact">Contatti</a>
+    <a href="#pillars">Servizi</a>
+    <a href="#about">Chi siamo</a>
+    <a href="#contact">Contatti</a>
   </div>
 </nav>
 
@@ -707,7 +702,7 @@ footer {
     <p class="hero-sub">
       28 è una società focalizzata sulla proprietà intellettuale. Identifichiamo, strutturiamo e monetizziamo idee con reale potenziale di mercato — trasformandole in asset scalabili.
     </p>
-    <a href="file:///Users/andreapalmieri/Downloads/28srl_FINALE.html#contact" class="hero-cta">Entra in contatto</a>
+    <a href="#contact" class="hero-cta">Entra in contatto</a>
   </div>
 </section>
 
@@ -789,6 +784,14 @@ footer {
   <div class="about-left r">
     <span class="al-label">Chi siamo</span>
     <h2 class="al-name">28<br>S.r.l.</h2>
+    <dl class="al-data">
+      <dt>P. IVA</dt>
+      <dd>IT 14642490966</dd>
+      <dt>Settore</dt>
+      <dd>Intellectual Property<br>Licensing · Consulenza<br>Formazione</dd>
+      <dt>Contatto</dt>
+      <dd>info@28srl.com</dd>
+    </dl>
   </div>
 
   <div class="about-right">
@@ -821,15 +824,6 @@ footer {
         <p class="av-desc">Selezioniamo idee con posizionamento premium. La qualità del portafoglio determina la qualità dei partner.</p>
       </div>
     </div>
-
-    <dl class="al-data r r4" style="margin-top: 56px; padding-top: 48px; border-top: 1px solid var(--line);">
-      <dt>P. IVA</dt>
-      <dd>IT 14642490966</dd>
-      <dt>Settore</dt>
-      <dd>Intellectual Property · Licensing · Consulenza · Formazione</dd>
-      <dt>Contatto</dt>
-      <dd>info@28srl.com</dd>
-    </dl>
   </div>
 </section>
 
@@ -888,6 +882,5 @@ const obs = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.r').forEach(el => obs.observe(el));
 </script>
-
-
-</body></html>
+</body>
+</html>
