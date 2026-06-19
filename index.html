@@ -1,319 +1,188 @@
-<!DOCTYPE html>
-<html lang="it">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="format-detection" content="telephone=no">
-<title>28 — Intellectual Property</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --gold: #B8975A;
-  --gold-bright: #D4AF6E;
-  --gold-dim: #6B5535;
-  --black: #040404;
-  --off-black: #090909;
-  --surface: #0D0D0D;
-  --text: #EDE9E3;
-  --text-mid: #7A7570;
-  --text-low: #3A3632;
-  --line: rgba(184,151,90,0.12);
-  --line-bright: rgba(184,151,90,0.25);
-}
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  background: var(--black);
-  color: var(--text);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 400;
-  overflow-x: hidden;
-  cursor: none;
-  -webkit-font-smoothing: antialiased;
-}
-#cur, #cur-r {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%,-50%);
-}
-#cur { width: 5px; height: 5px; background: var(--gold-bright); transition: width .25s, height .25s; }
-#cur-r { width: 32px; height: 32px; border: 1px solid rgba(184,151,90,.4); transition: width .3s, height .3s; }
-body::after {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='.035'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9000;
-  opacity: .5;
-}
-nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 500; padding: 36px 64px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-nav::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to bottom, rgba(4,4,4,.9) 0%, transparent 100%);
-  z-index: -1;
-}
-.logo { font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 500; letter-spacing: .15em; color: var(--gold-bright); text-decoration: none; }
-.nav-r { display: flex; align-items: center; gap: 48px; }
-.nav-r a { font-size: 14px; font-weight: 400; letter-spacing: .25em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color .3s; }
-.nav-r a:hover { color: var(--gold-bright); }
-.hero { height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 64px 80px; position: relative; overflow: hidden; }
-.hero-grid { position: absolute; inset: 0; overflow: hidden; }
-.hero-grid span { position: absolute; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent 0%, var(--line) 40%, var(--line) 60%, transparent 100%); opacity: 0; animation: gridFade 2s ease forwards; }
-.hero-grid span:nth-child(1) { left: 25%; animation-delay: .2s; }
-.hero-grid span:nth-child(2) { left: 50%; animation-delay: .4s; }
-.hero-grid span:nth-child(3) { left: 75%; animation-delay: .6s; }
-@keyframes gridFade { to { opacity: 1; } }
-.hero-glow { position: absolute; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(184,151,90,.06) 0%, transparent 70%); top: 50%; left: 60%; transform: translate(-50%,-50%); pointer-events: none; }
-.hero-eyebrow { font-size: 14px; font-weight: 400; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 40px; opacity: 0; animation: riseIn .9s ease .5s forwards; }
-.hero-h1 { font-family: 'Anton', sans-serif; font-size: clamp(72px, 9.5vw, 148px); line-height: .96; letter-spacing: -.02em; opacity: 0; animation: riseIn 1.1s ease .7s forwards; max-width: 1100px; }
-.hero-h1 em { color: var(--gold-bright); font-style: italic; font-family: Georgia, serif; }
-.hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; margin-top: 64px; opacity: 0; animation: riseIn .9s ease 1s forwards; }
-.hero-sub { font-size: 14px; font-weight: 300; line-height: 1.9; color: var(--text-mid); max-width: 360px; letter-spacing: .04em; }
-.hero-cta { display: flex; align-items: center; gap: 16px; font-size: 14px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: gap .4s; }
-.hero-cta:hover { gap: 28px; }
-.hero-cta::after { content: ''; display: block; width: 48px; height: 1px; background: var(--gold); transition: width .4s; }
-.hero-cta:hover::after { width: 72px; }
-@keyframes riseIn { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
-.sep { height: 1px; background: linear-gradient(to right, transparent, var(--line-bright) 30%, var(--line-bright) 70%, transparent); }
-.statement { padding: 160px 64px; display: grid; grid-template-columns: 1fr 2fr; gap: 0; align-items: center; position: relative; }
-.statement::before { content: ''; position: absolute; left: 64px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, var(--line) 20%, var(--line) 80%, transparent); }
-.st-label { padding-left: 40px; }
-.st-num { font-size: 14px; letter-spacing: .3em; color: var(--gold-dim); display: block; margin-bottom: 16px; }
-.st-tag { font-size: 14px; font-weight: 400; letter-spacing: .25em; text-transform: uppercase; color: var(--text-low); }
-.st-quote { font-family: 'Anton', sans-serif; font-size: clamp(28px, 3.5vw, 52px); line-height: 1.25; letter-spacing: -.01em; padding-left: 80px; border-left: 1px solid var(--line-bright); }
-.st-quote em { color: var(--gold-bright); font-style: normal; }
-.pillars { background: var(--off-black); padding: 120px 64px; }
-.pillars-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 80px; }
-.ph-label { font-size: 14px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 20px; }
-.ph-title { font-family: 'Anton', sans-serif; font-size: clamp(40px, 5vw, 64px); line-height: 1.05; letter-spacing: -.02em; }
-.ph-count { font-size: 100px; font-weight: 300; color: rgba(184,151,90,.07); line-height: 1; letter-spacing: -.03em; user-select: none; }
-.pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); }
-.pillars-bottom { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); margin-top: 1px; }
-.pillar { background: var(--off-black); padding: 52px 44px; position: relative; overflow: hidden; transition: background .4s; }
-.pillar:hover { background: var(--surface); }
-.pillar-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, var(--gold), transparent); transform: scaleX(0); transform-origin: left; transition: transform .5s ease; }
-.pillar:hover .pillar-line { transform: scaleX(1); }
-.p-num { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 300; color: var(--gold); letter-spacing: .05em; margin-bottom: 32px; display: block; line-height: 1; }
-.p-name { font-family: 'Anton', sans-serif; font-size: 30px; line-height: 1.15; margin-bottom: 20px; letter-spacing: -.01em; }
-.p-desc { font-size: 14px; font-weight: 300; line-height: 1.95; color: var(--text-mid); letter-spacing: .025em; }
-.manifesto { padding: 200px 64px; text-align: center; position: relative; overflow: hidden; }
-.manifesto-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(184,151,90,.04) 0%, transparent 70%); pointer-events: none; }
-.manifesto-ornament { display: block; width: 1px; height: 80px; background: linear-gradient(to bottom, transparent, var(--line-bright)); margin: 0 auto 60px; }
-.manifesto-text { font-family: 'Anton', sans-serif; font-size: clamp(24px, 3.2vw, 46px); line-height: 1.45; max-width: 860px; margin: 0 auto; letter-spacing: -.01em; }
-.manifesto-text em { color: var(--gold-bright); font-style: normal; }
-.manifesto-ornament-b { display: block; width: 1px; height: 80px; background: linear-gradient(to bottom, var(--line-bright), transparent); margin: 60px auto 0; }
-.about { padding: 120px 64px; background: var(--off-black); display: grid; grid-template-columns: 320px 1fr; gap: 120px; align-items: start; }
-.about-left { position: sticky; top: 100px; }
-.al-label { font-size: 14px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 28px; display: block; }
-.al-name { font-family: 'Anton', sans-serif; font-size: 52px; line-height: 1; letter-spacing: -.02em; margin-bottom: 56px; }
-.al-data { font-size: 14px; line-height: 2; }
-.al-data dt { font-size: 14px; letter-spacing: .25em; text-transform: uppercase; color: var(--text-low); margin-top: 20px; margin-bottom: 4px; }
-.al-data dd { color: var(--text-mid); font-weight: 300; }
-.ar-lead { font-family: 'Anton', sans-serif; font-size: clamp(22px, 2.5vw, 32px); line-height: 1.45; color: var(--text); margin-bottom: 52px; padding-bottom: 52px; border-bottom: 1px solid var(--line); letter-spacing: -.005em; }
-.ar-body { font-size: 14px; font-weight: 300; line-height: 2.1; color: var(--text-mid); letter-spacing: .025em; }
-.ar-body p + p { margin-top: 28px; }
-.ar-values { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); margin-top: 72px; }
-.av-item { background: var(--off-black); padding: 32px 28px; transition: background .3s; }
-.av-item:hover { background: var(--surface); }
-.av-title { font-size: 18px; font-weight: 400; color: var(--gold); margin-bottom: 10px; }
-.av-desc { font-size: 14px; font-weight: 300; line-height: 1.85; color: var(--text-low); letter-spacing: .02em; }
-.contact { padding: 160px 64px; position: relative; overflow: hidden; }
-.contact-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(184,151,90,.05) 0%, transparent 70%); bottom: -100px; right: -100px; pointer-events: none; }
-.contact-label { font-size: 14px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 40px; display: block; }
-.contact-h { font-family: 'Anton', sans-serif; font-size: clamp(52px, 7vw, 104px); line-height: .97; letter-spacing: -.025em; max-width: 700px; margin-bottom: 72px; }
-.contact-h em { color: var(--gold-bright); font-style: italic; font-family: Georgia, serif; }
-.contact-email { display: inline-flex; align-items: center; gap: 20px; font-size: clamp(18px, 2.5vw, 28px); font-weight: 300; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line-bright); padding-bottom: 20px; letter-spacing: .02em; transition: color .3s, border-color .3s, gap .3s; }
-.contact-email::after { content: '→'; font-size: .7em; color: var(--gold); transition: transform .3s; }
-.contact-email:hover { color: var(--gold-bright); border-color: var(--gold); gap: 32px; }
-.contact-email:hover::after { transform: translateX(8px); }
-footer { padding: 36px 64px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); }
-.f-logo { font-size: 18px; font-weight: 400; letter-spacing: .35em; color: var(--gold-dim); }
-.f-data { font-size: 14px; color: var(--text-low); letter-spacing: .1em; text-align: center; }
-.f-copy { font-size: 14px; color: var(--text-low); letter-spacing: .08em; }
-.r { opacity: 0; transform: translateY(44px); transition: opacity .9s ease, transform .9s ease; }
-.r.on { opacity: 1; transform: translateY(0); }
-.r2 { transition-delay: .12s; }
-.r3 { transition-delay: .24s; }
-.r4 { transition-delay: .36s; }
-@media (max-width: 860px) {
-  nav { padding: 24px 28px; }
-  .nav-r a:not(:last-child) { display: none; }
-  .hero, .statement, .pillars, .manifesto, .about, .contact { padding-left: 28px; padding-right: 28px; }
-  .hero { padding-bottom: 56px; }
-  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 32px; }
-  .statement { grid-template-columns: 1fr; gap: 40px; }
-  .statement::before { display: none; }
-  .st-quote { padding-left: 28px; }
-  .pillars-grid { grid-template-columns: 1fr; }
-  .pillars-bottom { grid-template-columns: 1fr; }
-  .about { grid-template-columns: 1fr; gap: 60px; }
-  .about-left { position: static; }
-  .ar-values { grid-template-columns: 1fr; }
-  footer { flex-direction: column; gap: 16px; text-align: center; padding: 28px; }
-}
-</style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.6">
+  <style type="text/css">
+    body {background-color: #0a0a0b}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.8px 'Helvetica Neue'; color: #97948a; -webkit-text-stroke: #97948a}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7; min-height: 15.0px}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 8.9px 'Helvetica Neue'; color: #58564f; -webkit-text-stroke: #58564f}
+    p.p6 {margin: 0.0px 0.0px 44.0px 0.0px; font: 13.4px 'Helvetica Neue'; color: #97948a; -webkit-text-stroke: #97948a}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.6px 'Helvetica Neue'; color: #bc921e; -webkit-text-stroke: #bc921e}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.4px 'Helvetica Neue'; color: #bc921e; -webkit-text-stroke: #bc921e}
+    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 8.6px 'Helvetica Neue'; color: #bc921e; -webkit-text-stroke: #bc921e}
+    p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.6px 'Helvetica Neue'; color: #97948a; -webkit-text-stroke: #97948a}
+    p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.8px 'Helvetica Neue'; color: #bc921e; -webkit-text-stroke: #bc921e}
+    p.p15 {margin: 0.0px 0.0px 52.0px 0.0px; font: 13.4px 'Helvetica Neue'; color: #97948a; -webkit-text-stroke: #97948a}
+    p.p16 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.2px 'Helvetica Neue'; color: #bc921e; -webkit-text-stroke: #bc921e}
+    p.p17 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7; background-color: #0d0d0e}
+    p.p19 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.2px 'Helvetica Neue'; color: #8bb76b; -webkit-text-stroke: #8bb76b}
+    p.p20 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.4px 'Helvetica Neue'; color: #8bb76b; -webkit-text-stroke: #8bb76b}
+    p.p23 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.2px 'Zapf Dingbats'; color: #c47577; -webkit-text-stroke: #c47577}
+    p.p24 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.4px 'Helvetica Neue'; color: #c47577; -webkit-text-stroke: #c47577}
+    p.p25 {margin: 0.0px 0.0px 0.0px 0.0px; font: 31.2px 'Helvetica Neue'; color: #bc921e; -webkit-text-stroke: #bc921e}
+    p.p27 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.8px 'Helvetica Neue'; color: #97948a; -webkit-text-stroke: #97948a}
+    p.p28 {margin: 0.0px 0.0px 0.0px 0.0px; font: 8.9px 'Helvetica Neue'; color: #bc921e; -webkit-text-stroke: #bc921e}
+    p.p30 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.6px 'Helvetica Neue'; color: #58564f; -webkit-text-stroke: #58564f}
+    p.p31 {margin: 0.0px 0.0px 20.0px 0.0px; font: 12.2px 'Helvetica Neue'; color: #97948a; -webkit-text-stroke: #97948a}
+    p.p33 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.8px 'Helvetica Neue'; color: #97948a; -webkit-text-stroke: #97948a}
+    p.p34 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 8.6px 'Helvetica Neue'; color: #bc921e; -webkit-text-stroke: #bc921e}
+    p.p36 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 13.8px 'Helvetica Neue'; color: #bc921e; -webkit-text-stroke: #bc921e}
+    p.p37 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 11.0px 'Helvetica Neue'; color: #58564f; -webkit-text-stroke: #58564f}
+    p.p38 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.4px 'Helvetica Neue'; color: #58564f; -webkit-text-stroke: #58564f}
+    p.p39 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.1px 'Helvetica Neue'; color: #58564f; -webkit-text-stroke: #58564f}
+    li.li21 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.2px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7}
+    li.li22 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #97948a; -webkit-text-stroke: #97948a}
+    span.s1 {font-kerning: none; background-color: rgba(10, 10, 11, 0.72)}
+    span.s2 {font-kerning: none; color: #bc921e; background-color: rgba(10, 10, 11, 0.72); -webkit-text-stroke: 0px #bc921e}
+    span.s3 {font-kerning: none}
+    span.s4 {font-kerning: none; color: #bc921e; -webkit-text-stroke: 0px #bc921e}
+    span.s5 {font-kerning: none; color: #cfac44; -webkit-text-stroke: 0px #cfac44}
+    span.s6 {font-kerning: none; background-color: #0a0a0b}
+    span.s7 {font-kerning: none; color: #cfac44; background-color: #0a0a0b; -webkit-text-stroke: 0px #cfac44}
+    span.s8 {font-kerning: none; background-color: rgba(188, 146, 30, 0.039)}
+    span.s9 {font-kerning: none; color: #f1efe7; background-color: #0a0a0b; -webkit-text-stroke: 0px #f1efe7}
+    span.s10 {font-kerning: none; background-color: #0d0d0e}
+    span.s11 {font: 11.0px 'Helvetica Neue'; color: #8bb76b; background-color: #0d0d0e; -webkit-text-stroke: 0px #000000}
+    span.s12 {font: 11.0px 'Helvetica Neue'; font-kerning: none; color: #8bb76b; background-color: #0d0d0e; -webkit-text-stroke: 0px #8bb76b}
+    span.s13 {font: 11.0px 'Helvetica Neue'; font-kerning: none; color: #8bb76b; -webkit-text-stroke: 0px #8bb76b}
+    span.s14 {background-color: #0d0d0e; -webkit-text-stroke: 0px #000000}
+    span.s15 {font: 12.2px 'Helvetica Neue'; font-kerning: none; color: #f1efe7; -webkit-text-stroke: 0px #f1efe7}
+    span.s16 {font-kerning: none; color: #8bb76b; background-color: #0d0d0e; -webkit-text-stroke: 0px #8bb76b}
+    span.s17 {font-kerning: none; color: #8bb76b; -webkit-text-stroke: 0px #8bb76b}
+    span.s18 {font: 12.2px 'Helvetica Neue'; font-kerning: none; color: #f1efe7; background-color: #0d0d0e; -webkit-text-stroke: 0px #f1efe7}
+    span.s19 {font: 11.0px 'Helvetica Neue'; color: #c47577; background-color: #0d0d0e; -webkit-text-stroke: 0px #000000}
+    span.s20 {font: 11.0px 'Helvetica Neue'; font-kerning: none; color: #c47577; background-color: #0d0d0e; -webkit-text-stroke: 0px #c47577}
+    span.s21 {font: 11.0px 'Helvetica Neue'; font-kerning: none; color: #c47577; -webkit-text-stroke: 0px #c47577}
+    span.s22 {font-kerning: none; color: #c47577; background-color: #0d0d0e; -webkit-text-stroke: 0px #c47577}
+    span.s23 {font-kerning: none; color: #c47577; -webkit-text-stroke: 0px #c47577}
+    span.s24 {font-kerning: none; color: #f1efe7; -webkit-text-stroke: 0px #f1efe7}
+    span.s25 {font: 13.8px 'Helvetica Neue'; font-kerning: none; color: #bc921e; -webkit-text-stroke: 0px #bc921e}
+    ul.ul1 {list-style-type: disc}
+  </style>
 </head>
 <body>
-<div id="cur"></div>
-<div id="cur-r"></div>
-<nav>
-  <a href="#" class="logo">28</a>
-  <div class="nav-r">
-    <a href="#pillars">Servizi</a>
-    <a href="#about">Chi siamo</a>
-    <a href="#contact">Contatti</a>
-  </div>
-</nav>
-<section class="hero">
-  <div class="hero-grid"><span></span><span></span><span></span></div>
-  <div class="hero-glow"></div>
-  <p class="hero-eyebrow">Intellectual Property · Licensing · Innovation</p>
-  <h1 class="hero-h1">Il valore<br>nasce dalle <em>idee.</em></h1>
-  <div class="hero-bottom">
-    <p class="hero-sub">28 è una società focalizzata sulla proprietà intellettuale. Identifichiamo, strutturiamo e monetizziamo idee con reale potenziale di mercato — trasformandole in asset scalabili.</p>
-    <a href="#contact" class="hero-cta">Entra in contatto</a>
-  </div>
-</section>
-<div class="sep"></div>
-<section class="statement">
-  <div class="st-label r">
-    <span class="st-num">— 01</span>
-    <span class="st-tag">La nostra tesi</span>
-  </div>
-  <blockquote class="st-quote r r2">Il vero leverage non è<br>vendere prodotti.<br>È <em>possedere le idee</em><br>che li generano.</blockquote>
-</section>
-<div class="sep"></div>
-<section class="pillars" id="pillars">
-  <div class="pillars-head">
-    <div class="r">
-      <p class="ph-label">Cosa facciamo</p>
-      <h2 class="ph-title">Il nostro<br>processo</h2>
-    </div>
-    <span class="ph-count r r2">05</span>
-  </div>
-  <div class="pillars-grid">
-    <div class="pillar r">
-      <div class="pillar-line"></div>
-      <span class="p-num">01</span>
-      <h3 class="p-name">Proprietà<br>Intellettuale</h3>
-      <p class="p-desc">Identifichiamo e strutturiamo idee ad alto potenziale trasformandole in asset proteggibili: brevetti, marchi, diritti d'autore, segreti industriali. Ogni idea trova la sua forma legale ottimale.</p>
-    </div>
-    <div class="pillar r r2">
-      <div class="pillar-line"></div>
-      <span class="p-num">02</span>
-      <h3 class="p-name">Sviluppo<br>e Validazione</h3>
-      <p class="p-desc">Ogni idea viene testata sul mercato prima di essere finalizzata. Posizionamento, analisi competitiva, validazione con stakeholder di settore: garantiamo che il potenziale sia reale e misurabile.</p>
-    </div>
-    <div class="pillar r r3">
-      <div class="pillar-line"></div>
-      <span class="p-num">03</span>
-      <h3 class="p-name">Licensing<br>e Monetizzazione</h3>
-      <p class="p-desc">Monetizziamo il portafoglio IP attraverso accordi di licenza con aziende produttive e distributive globali. Revenue scalabili, senza investimenti in produzione diretta.</p>
-    </div>
-  </div>
-  <div class="pillars-bottom">
-    <div class="pillar r r2">
-      <div class="pillar-line"></div>
-      <span class="p-num">04</span>
-      <h3 class="p-name">Consulenza<br>IP</h3>
-      <p class="p-desc">Affianchiamo imprenditori, startup e aziende nella gestione strategica della loro proprietà intellettuale: dalla prima idea fino alla strutturazione completa del portafoglio IP.</p>
-    </div>
-    <div class="pillar r r3">
-      <div class="pillar-line"></div>
-      <span class="p-num">05</span>
-      <h3 class="p-name">Formazione<br>sul mondo IP</h3>
-      <p class="p-desc">Educhiamo imprenditori e professionisti sul valore della proprietà intellettuale. Perché capire l'IP non è un vantaggio competitivo — è una necessità.</p>
-    </div>
-  </div>
-</section>
-<section class="manifesto">
-  <div class="manifesto-glow"></div>
-  <span class="manifesto-ornament r"></span>
-  <p class="manifesto-text r r2">"Un'idea ben strutturata è un asset che lavora per te <em>ventiquattro ore su ventiquattro,</em> su scala globale, senza limiti geografici — e senza che tu debba produrre nulla."</p>
-  <span class="manifesto-ornament-b"></span>
-</section>
-<div class="sep"></div>
-<section class="about" id="about">
-  <div class="about-left r">
-    <span class="al-label">Chi siamo</span>
-    <h2 class="al-name">28<br>S.r.l.</h2>
-    <dl class="al-data">
-      <dt>Settore</dt>
-      <dd>Intellectual Property<br>Licensing · Consulenza<br>Formazione</dd>
-    </dl>
-  </div>
-  <div class="about-right">
-    <p class="ar-lead r">"Non siamo una product company. Siamo un sistema di creazione di valore intellettuale — costruito per durare, scalare e moltiplicarsi."</p>
-    <div class="ar-body r r2">
-      <p>28 è nata con una tesi precisa: in mercati saturi, il leverage reale appartiene a chi possiede le idee, non a chi le esegue. La produzione è scalabile e replicabile. La proprietà intellettuale è esclusiva e difendibile.</p>
-      <p>Operiamo come holding intellettuale: costruiamo un portafoglio di asset IP in settori ad alta scalabilità, strutturiamo ogni idea nella sua forma legale più efficace e la monetizziamo attraverso licensing con partner produttivi e distributivi globali.</p>
-      <p>Offriamo anche consulenza strategica a chi vuole proteggere e valorizzare le proprie idee, e formazione per chi vuole capire davvero come funziona il mondo dell'IP. Perché educare è parte del nostro mandato.</p>
-      <p>Il modello è quello delle grandi licensing company internazionali. Premium. Globale. Scalabile.</p>
-    </div>
-    <div class="ar-values r r3">
-      <div class="av-item">
-        <h4 class="av-title">Leverage</h4>
-        <p class="av-desc">Possedere ciò che crea valore, non ciò che lo esegue. L'IP è l'unico asset che lavora a scala illimitata.</p>
-      </div>
-      <div class="av-item">
-        <h4 class="av-title">Precisione</h4>
-        <p class="av-desc">Ogni idea supera un processo rigoroso di validazione prima di entrare nel portafoglio.</p>
-      </div>
-      <div class="av-item">
-        <h4 class="av-title">Scalabilità</h4>
-        <p class="av-desc">Il licensing consente di monetizzare la stessa idea su mercati, settori e geografie multiple in parallelo.</p>
-      </div>
-      <div class="av-item">
-        <h4 class="av-title">Premium</h4>
-        <p class="av-desc">Selezioniamo idee con posizionamento premium. La qualità del portafoglio determina la qualità dei partner.</p>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="sep"></div>
-<section class="contact" id="contact">
-  <div class="contact-glow"></div>
-  <span class="contact-label r">Contatti</span>
-  <h2 class="contact-h r r2">Parliamo<br>di <em>idee.</em></h2>
-  <a href="mailto:info@28srl.com" class="contact-email r r3">info@28srl.com</a>
-</section>
-<footer>
-  <span class="f-logo">28</span>
-  <span class="f-data">28 S.r.l. &nbsp;·&nbsp; P.IVA IT&#160;14642490966 &nbsp;·&nbsp; Italia</span>
-  <span class="f-copy">© 2026 28 S.r.l.</span>
-</footer>
-<script>
-const cur = document.getElementById('cur');
-const curR = document.getElementById('cur-r');
-let mx = -200, my = -200, rx = -200, ry = -200;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cur.style.left = mx + 'px';
-  cur.style.top = my + 'px';
-});
-(function loop() {
-  rx += (mx - rx) * .1;
-  ry += (my - ry) * .1;
-  curR.style.left = rx + 'px';
-  curR.style.top = ry + 'px';
-  requestAnimationFrame(loop);
-})();
-document.querySelectorAll('a').forEach(a => {
-  a.addEventListener('mouseenter', () => { cur.style.width = cur.style.height = '12px'; curR.style.width = curR.style.height = '52px'; });
-  a.addEventListener('mouseleave', () => { cur.style.width = cur.style.height = '5px'; curR.style.width = curR.style.height = '32px'; });
-});
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
-}, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.r').forEach(el => obs.observe(el));
-</script>
+<p class="p1"><span class="s1">inde2</span><span class="s2">8</span></p>
+<p class="p2"><span class="s1">Modello</span></p>
+<p class="p2"><span class="s1">Requisiti</span></p>
+<p class="p2"><span class="s1">Percorsi</span></p>
+<p class="p2"><span class="s1">Chi siamo</span></p>
+<p class="p2"><span class="s1">Contatti</span></p>
+<p class="p3"><span class="s3"></span><br></p>
+<p class="p4"><span class="s3">LA PRIMA SOCIETÀ ITALIANA DI </span><span class="s4">LICENZA DIRETTA</span></p>
+<h1 style="margin: 0.0px 0.0px 34.0px 0.0px; font: 68.0px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s3">Tu possiedi l'idea.<br>
+</span><span class="s5">Altri la producono.</span><span class="s3"><br>
+Tu incassi.</span></h1>
+<p class="p6"><span class="s3">28 trasforma le invenzioni in prodotti sul mercato attraverso la licenza diretta. Non produciamo nulla: strutturiamo l'idea, la proteggiamo e la portiamo a scaffale tramite chi ha già fabbrica e negozi.</span></p>
+<p class="p7"><span class="s3">ENTRA IN CONTATTO</span></p>
+<p class="p7"><span class="s3">→</span></p>
+<p class="p8"><span class="s3">— 01 · LA NOSTRA TESI</span></p>
+<blockquote style="margin: 0.0px 0.0px 0.0px 0.0px; font: 35.2px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s3">Il vero leverage non è vendere prodotti. È </span><span class="s5">possedere le idee</span><span class="s3"> che li generano.</span></blockquote>
+<p class="p10"><span class="s6">— 02 · IL MODELLO</span></p>
+<h2 style="margin: 0.0px 0.0px 0.0px 0.0px; font: 36.0px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s6">Dall'idea alla </span><span class="s7">royalty</span><span class="s6">, senza una linea di produzione.</span></h2>
+<p class="p10"><span class="s6">01</span></p>
+<h3 style="margin: 0.0px 0.0px 12.0px 0.0px; font: 15.4px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s6">Idea</span></h3>
+<p class="p13"><span class="s6">Un'invenzione fisica con potenziale di mercato reale.</span></p>
+<p class="p14"><span class="s6">→</span></p>
+<p class="p10"><span class="s6">02</span></p>
+<h3 style="margin: 0.0px 0.0px 12.0px 0.0px; font: 15.4px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s6">Struttura IP</span></h3>
+<p class="p13"><span class="s6">La rendiamo brevettabile e difendibile: brevetti, marchi, diritti.</span></p>
+<p class="p10"><span class="s6">03</span></p>
+<h3 style="margin: 0.0px 0.0px 12.0px 0.0px; font: 15.4px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s6">Licenza diretta</span></h3>
+<p class="p13"><span class="s6">La affidiamo a chi può produrla e venderla nei propri negozi.</span></p>
+<p class="p14"><span class="s6">→</span></p>
+<p class="p10"><span class="s8">04</span></p>
+<h3 style="margin: 0.0px 0.0px 12.0px 0.0px; font: 15.4px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s8">Royalty</span></h3>
+<p class="p13"><span class="s8">Minimi garantiti e ricavi scalabili su più mercati in parallelo.</span></p>
+<p class="p10"><span class="s3">— 03 · COSA SIGNIFICA LICENZA DIRETTA</span></p>
+<h2 style="margin: 0.0px 0.0px 0.0px 0.0px; font: 36.0px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s3">L'invenzione giusta incontra </span><span class="s5">chi può venderla domani.</span></h2>
+<p class="p15"><span class="s3">Il nostro interlocutore non è un distributore: è l'azienda che ha già fabbrica e scaffali. Tre esempi concreti.</span></p>
+<p class="p1"><span class="s3">Una sedia che diventa lampada</span></p>
+<p class="p16"><span class="s3">→</span></p>
+<p class="p17"><span class="s3">IKEA</span></p>
+<p class="p1"><span class="s3">Un trapano che diventa scala</span></p>
+<p class="p16"><span class="s3">→</span></p>
+<p class="p17"><span class="s3">Brico · Leroy Merlin</span></p>
+<p class="p1"><span class="s3">Un utensile da cucina brevettabile</span></p>
+<p class="p16"><span class="s3">→</span></p>
+<p class="p17"><span class="s3">Walmart</span></p>
+<p class="p10"><span class="s6">— 04 · I REQUISITI</span></p>
+<h2 style="margin: 0.0px 0.0px 0.0px 0.0px; font: 36.0px 'Helvetica Neue'; color: #cfac44; -webkit-text-stroke: #cfac44"><span class="s9">I requisiti per </span><span class="s6">lavorare con noi.</span></h2>
+<p class="p19"><span class="s10">✓</span></p>
+<p class="p20"><span class="s10">LAVORIAMO CON</span></p>
+<ul class="ul1">
+  <li class="li21"><span class="s11"></span><span class="s12">+</span><span class="s13"><br>
+</span><span class="s10">Prodotti fisici</span></li>
+  <li class="li22"><span class="s14"></span><span class="s10">Oggetti reali, non servizi.</span><span class="s15"><br>
+</span><span class="s16">+</span><span class="s17"><br>
+</span><span class="s18">Brevettabili</span></li>
+  <li class="li22"><span class="s14"></span><span class="s10">Con un'idea difendibile alla base.</span><span class="s15"><br>
+</span><span class="s16">+</span><span class="s17"><br>
+</span><span class="s18">Prezzo democratico</span></li>
+  <li class="li22"><span class="s14"></span><span class="s10">Accessibili, pensati per la grande distribuzione.</span><span class="s15"><br>
+</span><span class="s16">+</span><span class="s17"><br>
+</span><span class="s18">Scalabili da subito</span></li>
+  <li class="li22"><span class="s14"></span><span class="s10">Quello che vende negli USA arriva in Europa immediatamente.</span></li>
+</ul>
+<p class="p23"><span class="s10">✕</span></p>
+<p class="p24"><span class="s10">NON VALUTIAMO</span></p>
+<ul class="ul1">
+  <li class="li21"><span class="s19"></span><span class="s20">−</span><span class="s21"><br>
+</span><span class="s10">Software</span></li>
+  <li class="li22"><span class="s14"></span><span class="s10">Non è il nostro mondo.</span><span class="s15"><br>
+</span><span class="s22">−</span><span class="s23"><br>
+</span><span class="s18">App</span></li>
+  <li class="li22"><span class="s14"></span><span class="s10">Modello incompatibile con la licenza diretta.</span><span class="s15"><br>
+</span><span class="s22">−</span><span class="s23"><br>
+</span><span class="s18">Prodotti da distributore</span></li>
+  <li class="li22"><span class="s14"></span><span class="s10">Servono partner che producano e vendano, non rivenditori.</span><span class="s15"><br>
+</span><span class="s22">−</span><span class="s23"><br>
+</span><span class="s18">Idee senza copertura IP</span></li>
+  <li class="li22"><span class="s14"></span><span class="s10">Se non è proteggibile, non è un asset.</span></li>
+</ul>
+<p class="p10"><span class="s3">— 05 · COME POSSIAMO AIUTARTI</span></p>
+<h2 style="margin: 0.0px 0.0px 0.0px 0.0px; font: 36.0px 'Helvetica Neue'; color: #cfac44; -webkit-text-stroke: #cfac44"><span class="s24">Qual è la </span><span class="s3">tua situazione?</span></h2>
+<p class="p25"><span class="s3">1</span></p>
+<h3 style="margin: 0.0px 0.0px 8.0px 0.0px; font: 18.0px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s3">Hai un'idea + budget per il prototipo</span></h3>
+<p class="p27"><span class="s3">La sviluppiamo e la portiamo sul mercato con te. Senza capitale per la fase di sviluppo, però, non si parte: lo sviluppo ha un costo e va finanziato.</span></p>
+<p class="p28"><span class="s3">SVILUPPO CONGIUNTO</span></p>
+<p class="p25"><span class="s3">2</span></p>
+<h3 style="margin: 0.0px 0.0px 8.0px 0.0px; font: 18.0px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s3">Hai già un prototipo funzionante</span></h3>
+<p class="p27"><span class="s3">Facciamo un'analisi gratuita per capire se è licenziabile, brevettabile e scalabile. Se ha le caratteristiche giuste, ti affianchiamo a success fee: guadagniamo solo se guadagni tu.</span></p>
+<p class="p28"><span class="s3">ANALISI GRATUITA · SUCCESS FEE</span></p>
+<p class="p25"><span class="s3">3</span></p>
+<h3 style="margin: 0.0px 0.0px 8.0px 0.0px; font: 18.0px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s3">Hai investitori interessati ma serve un pitch solido</span></h3>
+<p class="p27"><span class="s3">Ti aiutiamo a costruire un pitch che garantisca agli investitori la realizzazione e l'ingegnerizzazione del prodotto, attraverso la nostra piattaforma in Asia.</span></p>
+<p class="p28"><span class="s3">PITCH + INGEGNERIZZAZIONE</span></p>
+<p class="p10"><span class="s6">— 06 · CHI SIAMO</span></p>
+<h2 style="margin: 0.0px 0.0px 0.0px 0.0px; font: 38.4px 'Helvetica Neue'; color: #cfac44; -webkit-text-stroke: #cfac44"><span class="s9">28 </span><span class="s6">S.r.l.</span></h2>
+<p class="p30"><span class="s6">Settore</span></p>
+<p class="p30"><span class="s6">Intellectual Property</span></p>
+<p class="p30"><span class="s6">Licenza Diretta · Licensing</span></p>
+<p class="p30"><span class="s6">Consulenza · Formazione</span></p>
+<p class="p31"><span class="s6">28 nasce con una tesi precisa: in mercati saturi, il leverage reale appartiene a chi possiede le idee, non a chi le esegue. La produzione è replicabile. La proprietà intellettuale è esclusiva e difendibile.</span></p>
+<p class="p1"><span class="s6">"Non siamo una product company. Siamo un sistema di creazione di valore intellettuale — costruito per durare, scalare e moltiplicarsi."</span></p>
+<p class="p31"><span class="s6">Operiamo come holding intellettuale: costruiamo un portafoglio di asset IP, strutturiamo ogni idea nella sua forma legale più efficace e la monetizziamo tramite licenza diretta con partner produttivi e distributivi globali.</span></p>
+<p class="p31"><span class="s6">Offriamo anche consulenza strategica a chi vuole proteggere le proprie idee, e formazione per chi vuole capire come funziona davvero il mondo dell'IP. Il modello è quello delle grandi licensing company internazionali. Premium. Globale. Scalabile.</span></p>
+<h4 style="margin: 0.0px 0.0px 8.0px 0.0px; font: 14.4px 'Helvetica Neue'; color: #cfac44; -webkit-text-stroke: #cfac44"><span class="s10">Leverage</span></h4>
+<p class="p33"><span class="s10">Possedere ciò che crea valore, non ciò che lo esegue.</span></p>
+<h4 style="margin: 0.0px 0.0px 8.0px 0.0px; font: 14.4px 'Helvetica Neue'; color: #cfac44; -webkit-text-stroke: #cfac44"><span class="s10">Precisione</span></h4>
+<p class="p33"><span class="s10">Ogni idea supera un processo rigoroso di validazione.</span></p>
+<h4 style="margin: 0.0px 0.0px 8.0px 0.0px; font: 14.4px 'Helvetica Neue'; color: #cfac44; -webkit-text-stroke: #cfac44"><span class="s10">Scalabilità</span></h4>
+<p class="p33"><span class="s10">La stessa idea monetizzata su mercati e geografie multiple.</span></p>
+<h4 style="margin: 0.0px 0.0px 8.0px 0.0px; font: 14.4px 'Helvetica Neue'; color: #cfac44; -webkit-text-stroke: #cfac44"><span class="s10">Premium</span></h4>
+<p class="p33"><span class="s10">La qualità del portafoglio determina la qualità dei partner.</span></p>
+<p class="p34"><span class="s3">— 07 · CONTATTI</span></p>
+<h2 style="margin: 0.0px 0.0px 30.0px 0.0px; text-align: center; font: 48.0px 'Helvetica Neue'; color: #f1efe7; -webkit-text-stroke: #f1efe7"><span class="s3">Parliamo di </span><span class="s5">idee.</span></h2>
+<p class="p36"><span class="s3"><a href="mailto:info@28srl.com">info@28srl.com<span class="s25"></span></a></span></p>
+<p class="p37"><span class="s3">Se rientri nei nostri criteri, scrivici. Se non rientri, ti abbiamo appena fatto risparmiare tempo.</span></p>
+<p class="p38"><span class="s3">2</span><span class="s4">8</span></p>
+<p class="p39"><span class="s3">28 S.r.l. · P.IVA IT 14642490966 · Italia</span></p>
+<p class="p39"><span class="s3">© 2026 28 S.r.l.</span></p>
 </body>
 </html>
